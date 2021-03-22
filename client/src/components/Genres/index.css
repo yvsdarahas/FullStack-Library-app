@@ -1,0 +1,21 @@
+/* body {
+  background-color: #171717;
+} */
+.genre {
+  display: flex;
+  flex-wrap: wrap;
+}
+.genre-head {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+.genre-head h1 {
+  margin-left: 40px;
+  z-index: 10;
+}
+.genre-head h4 {
+  text-align: right;
+  margin-right: 40px;
+  z-index: 10;
+}

@@ -1,0 +1,83 @@
+GET http://localhost:5000/api/v1/books HTTP/1.1
+content-type: application/json
+
+###
+
+GET http://localhost:5000/api/v1/books/60379639776d4712781c8919 HTTP/1.1
+content-type: application/json
+
+###
+
+POST http://localhost:5000/api/v1/books HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Fifty Shades of Grey",
+    "author": "E.L.James",
+    "coverPage": "https://images-na.ssl-images-amazon.com/images/I/51erHMLhIzL.jpg",
+    "shortDescription": "When literature student Anastasia Steele goes to interview young entrepreneur Christian Grey, she encounters a man who is beautiful, brilliant, and intimidating. The unworldly, innocent Ana is startled to realize she wants this man and, despite his enigmatic reserve, finds she is desperate to get close to him. Unable to resist Ana’s quiet beauty, wit, and independent spirit, Grey admits he wants her, too—but on his own terms.",
+    "published": 2011,
+    "pages": 356,
+    "genre": "romance",
+    "rating": 3.6
+  }
+
+###
+
+PATCH http://localhost:5000/api/v1/books/603796af776d4712781c891b HTTP/1.1
+content-type: application/json
+
+{
+    "coverPage": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781471127182/the-complete-sherlock-holmes-9781471127182_hr.jpg"
+}
+###
+
+DELETE http://localhost:5000/api/v1/books/60379639776d4712781c8919 HTTP/1.1
+content-type: application/json
+
+###
+
+GET http://localhost:5000/api/v1/users HTTP/1.1
+content-type: application/json
+
+###
+
+
+GET http://localhost:5000/api/v1/users/6038935dc500493ed46d92a6 HTTP/1.1
+content-type: application/json
+
+###
+
+POST http://localhost:5000/api/v1/users HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "darahas",
+    "lastName": "yeedi",
+    "email": "yvsd@gmail.com",
+    "password": "64646435", 
+    "books": [{
+    "title": "Fifty Shades of Grey",
+    "author": "E.L.James",
+    "coverPage": "https://images-na.ssl-images-amazon.com/images/I/51erHMLhIzL.jpg",
+    "shortDescription": "When literature student Anastasia Steele goes to interview young entrepreneur Christian Grey, she encounters a man who is beautiful, brilliant, and intimidating. The unworldly, innocent Ana is startled to realize she wants this man and, despite his enigmatic reserve, finds she is desperate to get close to him. Unable to resist Ana’s quiet beauty, wit, and independent spirit, Grey admits he wants her, too—but on his own terms.",
+    "published": 2011,
+    "pages": 356,
+    "genre": "romance",
+    "rating": 3.6
+  }]
+  }
+  
+###
+
+PATCH http://localhost:5000/api/v1/users/603e5b3703bd022244d1829a HTTP/1.1
+content-type: application/json
+
+{
+  "books" : [{"availability":true,"_id":"6037822ccd311f22b4ae95dc","title":"Charlotte's Web","author":"E.B.White","shortDescription":"This beloved book by E.B.White, author of Stuart Little and The Trumpet of the Swan, is a classic of children's literature that is just about perfect. This high-quality paperback features vibrant illustrations colorized by Rosemary Wells!","genre":"children","pages":184,"coverPage":"https://www.thoughtco.com/thmb/KPjfgSA9vY1FdmQKnGVg5grwHrg=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/charlottesweb-5c72e5a546e0fb0001f87cf8.jpg","published":2001,"rating":4.1,"__v":0}, {"availability":true,"_id":"6039ed951974282d887fa9d6","title":"The Cat in the Hat","author":"Dr. Seuss","shortDescription":"Poor Sally and her brother. It's cold and wet and they're stuck in the house with nothing to do . . . until a giant cat in a hat shows up, transforming the dull day into a madcap adventure and almost wrecking the place in the process! Written by Dr. Seuss in 1957 in response to the concern that pallid primers [with] abnormally courteous, unnaturally clean boys and girls' were leading to growing illiteracy among children, The Cat in the Hat (the first Random House Beginner Book) changed the way our children learn how to read.","genre":"children","pages":72,"coverPage":"https://images-na.ssl-images-amazon.com/images/I/51erHMLhIzL.jpg","published":1957,"rating":4.2,"__v":0}]
+}
+  
+###
+
+DELETE http://localhost:5000/api/v1/users/603fd6c2bcaeb64bb0ce45a2 HTTP/1.1
+content-type: application/json

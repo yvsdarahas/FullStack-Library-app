@@ -1,0 +1,71 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.topnav-bar {
+  position: fixed;
+  top: 0px;
+  margin: 0px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #032f3e;
+  z-index: 100;
+}
+
+.topnav-bar ul {
+  margin: 0%;
+  padding: 0px 10px;
+  display: flex;
+}
+
+.topnav-bar ul li {
+  padding: 0px 10px;
+}
+
+.topnav-bar input {
+  flex: 0.7;
+  padding: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.borrow {
+  display: flex;
+}
+
+.fa-grin-hearts {
+  font-size: 32px;
+  color: white;
+}
+
+.borrowedCount {
+  color: white;
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.profilePic {
+  position: relative;
+}
+
+.profileDropDown {
+  position: absolute;
+  top: 66px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 20;
+  height: 250px;
+  width: 200px;
+  background-color: #032f3e;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
