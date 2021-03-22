@@ -1,26 +1,43 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { Profile } from "../Profile";
 import AdminPreviliges from "../AdminPreviliges";
+
 import "./index.css";
 
 export const TopNav = ({ search, setSearch, borrowedBooksCount }: any) => {
-  const [viewProfile, setViewProfile] = useState(false);
+  const history = useHistory();
+  const [isProfileImgClicked, setProfileImgClicked] = useState(false);
+  const [isProfileClicked, setProfileClicked] = useState(false);
+
   const signedInUser = useSelector((state: any) => state.users.signedInUser);
 
   const token = useSelector((state: any) => state.users.token);
 
   const handleLogOut = () => {
     localStorage.clear();
+    history.push("/");
     window.location.reload();
   };
 
   const handleProfile = () => {
-    setViewProfile(!viewProfile);
+    setProfileImgClicked(!isProfileImgClicked);
+  };
+
+  const handleProfileDetails = () => {
+    setProfileClicked(!isProfileClicked);
   };
 
   return (
     <div>
+      <div>
+        {isProfileClicked ? (
+          <div>
+            <Profile setProfileClicked={setProfileClicked} />
+          </div>
+        ) : null}
+      </div>
       <nav className="topnav-bar">
         <h2>
           <Link
@@ -63,18 +80,14 @@ export const TopNav = ({ search, setSearch, borrowedBooksCount }: any) => {
                 }}
               />
             </li>
-            {viewProfile ? (
+            {isProfileImgClicked ? (
               <ul className="profileDropDown">
-                <li>
-                  <Link
-                    style={{
-                      textDecoration: "none",
-                      color: "white",
-                    }}
-                    to="/"
-                  >
-                    Profile
-                  </Link>
+                <li
+                  onClick={() => {
+                    handleProfileDetails();
+                  }}
+                >
+                  Profile
                 </li>
                 {signedInUser.isAdmin ? <AdminPreviliges /> : null}
 

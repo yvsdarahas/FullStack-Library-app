@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { borrowBook, returnBook } from "../../redux/actions/users";
 
+import "./index.css";
+
 export const DetailedInfoOfBook = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -71,6 +73,7 @@ export const DetailedInfoOfBook = () => {
                   <li>{book.rating} / 5</li>
                 </ul>
                 <button
+                  className="borrowButton"
                   disabled={!buttonStatus}
                   onClick={() => handleBorrowBook(book)}
                 >

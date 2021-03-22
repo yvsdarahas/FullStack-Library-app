@@ -32,7 +32,7 @@ const AdminPreviliges = () => {
             textDecoration: "none",
             color: "white",
           }}
-          to="/"
+          to="/allUsers"
         >
           Users Info
         </Link>

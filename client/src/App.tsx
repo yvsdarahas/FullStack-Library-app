@@ -4,7 +4,6 @@ import { CreateBook } from "./components/CreateBook";
 import { DeleteBook } from "./components/DeleteBook";
 import { TopNav } from "./components/TopNav";
 import { UserRegister } from "./components/UserRegister";
-import { getUsers } from "./redux/actions/users";
 import { useDispatch, useSelector } from "react-redux";
 import { Home } from "./components/Home";
 import { getBooks } from "./redux/actions/books";
@@ -12,12 +11,12 @@ import { SignIn } from "./components/SignIn";
 import { GenrePage } from "./components/GenrePage";
 import { DetailedInfoOfBook } from "./components/DetailedInfoOfBook";
 import BooksBorrowed from "./components/BooksBorrowed";
+import AllUsersInfo from "./components/AllUsersInfo";
 
 function App() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState<string>("");
 
-  const users = useSelector((state: any) => state.users);
   const books = useSelector((state: any) => state.books.books);
   const signInToken = useSelector((state: any) => state.users.token);
   const signedInUser = useSelector((state: any) => state.users.signedInUser);
@@ -29,10 +28,6 @@ function App() {
   if (!signInToken) {
     localStorage.clear();
   }
-
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch, users.users.length]);
 
   useEffect(() => {
     dispatch(getBooks());
@@ -51,6 +46,7 @@ function App() {
         <Switch>
           <Route exact path="/register-user" component={UserRegister} />
           <Route exact path="/signIn" component={SignIn} />
+          <Route exact path="/allUsers" component={AllUsersInfo} />
           <Route exact path="/create-book" component={CreateBook} />
           <Route exact path="/delete-book" component={DeleteBook} />
           <Route exact path="/genre/:genre" component={GenrePage} />

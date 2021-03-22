@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { returnBook } from "../../redux/actions/users";
 
+import "./index.css";
+
 const BooksBorrowed = () => {
   const dispatch = useDispatch();
   const booksBorrowed = useSelector(
@@ -16,14 +18,14 @@ const BooksBorrowed = () => {
   return (
     <div style={{ marginTop: "100px" }}>
       {booksBorrowed.map((book: any) => (
-        <ul key={book._id}>
-          <li>
-            <img src={book.coverPage} alt="CoverPage" />
-          </li>
-          <li>{book.title}</li>
-          <li>{book.author}</li>
+        <div key={book._id}>
+          <img src={book.coverPage} alt="CoverPage" />
+          <ul>
+            <li>{book.title}</li>
+            <li>{book.author}</li>
+          </ul>
           <button onClick={() => handleReturnBook(book)}>Remove</button>
-        </ul>
+        </div>
       ))}
     </div>
   );

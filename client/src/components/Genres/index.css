@@ -4,6 +4,8 @@
 .genre {
   display: flex;
   flex-wrap: wrap;
+  margin: 0px 0px 0px 40px;
+  padding: 0px;
 }
 .genre-head {
   display: flex;
@@ -11,6 +13,7 @@
   margin-top: 25px;
 }
 .genre-head h1 {
+  font-size: 32px;
   margin-left: 40px;
   z-index: 10;
 }
