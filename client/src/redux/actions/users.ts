@@ -107,7 +107,6 @@ export const returnBook = (user: any, book: any, token: string) => {
         },
         { headers }
       )
-
       .then((response) => {
         dispatch(removeFromBorrowedList(response.data));
         localStorage.setItem("signedInUser", JSON.stringify(response.data));

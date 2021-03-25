@@ -1,16 +1,13 @@
 /* eslint-disable @typescript-eslint/member-delimiter-style */
 import mongoose from 'mongoose'
 import { UserDocument } from '../models/User'
-import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
-import { nextTick } from 'node:process'
 
 export async function findAndCreateUser(
   User: mongoose.Model<UserDocument>,
-  userData: any
+  signedUser: any
 ) {
-  // if (!user) user.save
-  const { given_name, family_name, email, picture } = userData
+  const { given_name, family_name, email, picture } = signedUser.userData
 
   const userVerify = await User.findOne({ email }).exec()
 
@@ -34,9 +31,9 @@ export async function findAndCreateUser(
 
 export async function findAndCreateToken(
   User: mongoose.Model<UserDocument>,
-  userData: any
+  signedUser: any
 ) {
-  const { email } = userData
+  const { email } = signedUser.userData
 
   const userVerify = await User.findOne({ email }).exec()
 

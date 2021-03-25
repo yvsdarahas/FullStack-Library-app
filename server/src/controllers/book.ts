@@ -8,7 +8,6 @@ import {
   InternalServerError,
 } from '../helpers/apiError'
 
-// POST /books\s
 export const createBook = async (
   req: Request,
   res: Response,
@@ -39,7 +38,7 @@ export const createBook = async (
       availability,
     })
 
-    await BookService.createItem(book)
+    await BookService.createBookService(book)
     res.json(book)
   } catch (error) {
     if (error.name === 'ValidationError') {
@@ -50,7 +49,6 @@ export const createBook = async (
   }
 }
 
-// PUT /bookss/:bookId
 export const updateBook = async (
   req: Request,
   res: Response,
@@ -59,51 +57,49 @@ export const updateBook = async (
   try {
     const update = req.body
     const bookId = req.params.bookId
-    await BookService.updateItem(Library, bookId, update)
+
+    await BookService.updateBookService(Library, bookId, update)
     return Library.findById(bookId)
       .exec()
       .then((book) => res.send(book))
   } catch (error) {
-    next(new NotFoundError('books not found', error))
+    next(new NotFoundError('book not found', error))
   }
 }
 
-// DELETE /books\s/:bookId
 export const deleteBook = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    await BookService.deleteItem(Library, req.params.bookId)
+    await BookService.deleteBookService(Library, req.params.bookId)
     res.status(204).end()
   } catch (error) {
-    next(new NotFoundError('books not found', error))
+    next(new NotFoundError('book not found', error))
   }
 }
 
-// GET /books\s/:bookId
 export const findBookById = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await BookService.findItemById(Library, req.params.bookId))
+    res.json(await BookService.findBookByIdService(Library, req.params.bookId))
   } catch (error) {
-    next(new NotFoundError('books not found', error))
+    next(new NotFoundError('book not found', error))
   }
 }
 
-// GET /books\s
 export const findAllBooks = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await BookService.findAllItems(Library))
+    res.json(await BookService.findAllBooksService(Library))
   } catch (error) {
-    next(new NotFoundError('bookss not found', error))
+    next(new NotFoundError('books not found', error))
   }
 }

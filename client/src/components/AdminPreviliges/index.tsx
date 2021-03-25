@@ -12,18 +12,7 @@ const AdminPreviliges = () => {
           }}
           to="/create-book"
         >
-          Create / Edit Book
-        </Link>
-      </li>
-      <li>
-        <Link
-          style={{
-            textDecoration: "none",
-            color: "white",
-          }}
-          to="/delete-book"
-        >
-          Delete Book
+          Create Book
         </Link>
       </li>
       <li>

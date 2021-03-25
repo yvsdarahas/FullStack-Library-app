@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createBook } from "../../redux/actions/books";
 import "./index.css";
 
 export const CreateBook = () => {
   const dispatch = useDispatch();
+  const token = useSelector((state: any) => state.users.token);
   const [book, setBook] = useState({
     title: "",
     author: "",
@@ -18,16 +19,12 @@ export const CreateBook = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    dispatch(createBook(book));
+    dispatch(createBook(book, token));
   };
 
   return (
-    <div className="create-book" style={{ marginTop: "100px" }}>
-      <div className="createbook-head">
-        <h1>LIBRARY</h1>
-        <h3>CREATE A BOOK</h3>
-      </div>
-      <form method="post" onSubmit={handleSubmit} className="createbook-form">
+    <form method="post" onSubmit={handleSubmit} className="createbook-form">
+      <div className="form-inputs">
         <div>
           <label htmlFor="title">Title</label>
           <input
@@ -124,10 +121,10 @@ export const CreateBook = () => {
             value={book.rating}
           />
         </div>
-        <button className="createbook-button" type="submit">
-          Add Book
-        </button>
-      </form>
-    </div>
+      </div>
+      <button className="createbook-button" type="submit">
+        Add Book
+      </button>
+    </form>
   );
 };

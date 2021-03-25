@@ -1,5 +1,5 @@
 import express from 'express'
-
+import { verifyToken } from '../middlewares/verifyToken'
 import {
   createBook,
   findBookById,
@@ -10,11 +10,11 @@ import {
 
 const bookrouter = express.Router()
 
-// Every path we define here will get /api/v1/movies prefix
+// Every path we define here will get /api/v1/books prefix
 bookrouter.get('/', findAllBooks)
 bookrouter.get('/:bookId', findBookById)
-bookrouter.patch('/:bookId', updateBook)
-bookrouter.delete('/:bookId', deleteBook)
-bookrouter.post('/', createBook)
+bookrouter.patch('/:bookId', verifyToken, updateBook)
+bookrouter.delete('/:bookId', verifyToken, deleteBook)
+bookrouter.post('/', verifyToken, createBook)
 
 export default bookrouter

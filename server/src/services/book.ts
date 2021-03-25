@@ -2,11 +2,11 @@
 import mongoose from 'mongoose'
 import { BookDocument } from '../models/Book'
 
-function createItem(item: BookDocument): Promise<BookDocument> {
+function createBookService(item: BookDocument): Promise<BookDocument> {
   return item.save()
 }
 
-function findItemById(
+function findBookByIdService(
   ItemModel: mongoose.Model<BookDocument>,
   itemId: string
 ): Promise<BookDocument> {
@@ -20,13 +20,13 @@ function findItemById(
     })
 }
 
-function findAllItems(
+function findAllBooksService(
   ItemModel: mongoose.Model<BookDocument>
 ): Promise<BookDocument[]> {
   return ItemModel.find().exec()
 }
 
-function updateItem(
+function updateBookService(
   ItemModel: mongoose.Model<BookDocument>,
   itemId: string,
   update: Partial<BookDocument>
@@ -34,7 +34,7 @@ function updateItem(
   return ItemModel.findByIdAndUpdate(itemId, update).exec()
 }
 
-function deleteItem(
+function deleteBookService(
   ItemModel: mongoose.Model<BookDocument>,
   itemId: string
 ): Promise<BookDocument | null> {
@@ -42,9 +42,9 @@ function deleteItem(
 }
 
 export default {
-  createItem,
-  findItemById,
-  findAllItems,
-  updateItem,
-  deleteItem,
+  createBookService,
+  findBookByIdService,
+  findAllBooksService,
+  updateBookService,
+  deleteBookService,
 }

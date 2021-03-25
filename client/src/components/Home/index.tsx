@@ -15,7 +15,7 @@ export const Home = ({ search, books }: any) => {
   );
 
   return (
-    <div style={{ marginTop: "65px" }}>
+    <div style={{ marginTop: "100px" }}>
       <section className="main">
         <Genre books={children} title="Children" />
         <Genre books={romance} title="Romance" />

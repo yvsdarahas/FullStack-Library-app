@@ -21,7 +21,7 @@ export const TopNav = ({ search, setSearch, borrowedBooksCount }: any) => {
     window.location.reload();
   };
 
-  const handleProfile = () => {
+  const handleProfileDropDown = () => {
     setProfileImgClicked(!isProfileImgClicked);
   };
 
@@ -71,7 +71,7 @@ export const TopNav = ({ search, setSearch, borrowedBooksCount }: any) => {
                 src={`${signedInUser.picture}`}
                 alt="profilePicture"
                 className="profilePic"
-                onClick={() => handleProfile()}
+                onClick={() => handleProfileDropDown()}
                 style={{
                   height: "40px",
                   width: "40px",

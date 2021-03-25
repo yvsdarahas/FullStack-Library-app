@@ -1,3 +1,14 @@
 .borrowButton {
-  margin: 30px;
+  margin: 20px;
+}
+
+.bookTitleAndButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bookTitleAndButtons button {
+  height: 30px;
+  width: 60px;
+  margin-right: 20px;
 }

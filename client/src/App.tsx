@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CreateBook } from "./components/CreateBook";
-import { DeleteBook } from "./components/DeleteBook";
 import { TopNav } from "./components/TopNav";
 import { UserRegister } from "./components/UserRegister";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,7 +47,6 @@ function App() {
           <Route exact path="/signIn" component={SignIn} />
           <Route exact path="/allUsers" component={AllUsersInfo} />
           <Route exact path="/create-book" component={CreateBook} />
-          <Route exact path="/delete-book" component={DeleteBook} />
           <Route exact path="/genre/:genre" component={GenrePage} />
           <Route
             exact

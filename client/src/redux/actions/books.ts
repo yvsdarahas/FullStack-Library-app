@@ -10,7 +10,7 @@ const fetchBooks = (books: any) => {
   };
 };
 
-const postBook = (book: any) => {
+const createBookAction = (book: any) => {
   return {
     type: CREATE_BOOK,
     payload: book,
@@ -38,13 +38,15 @@ export const getBooks = () => {
   };
 };
 
-export const createBook = (book: any) => {
+export const createBook = (book: any, token: string) => {
+  const headers = { "auth-token": token };
+
   return (dispatch: Dispatch) => {
     axios
-      .post("http://localhost:5000/api/v1/books", book)
+      .post("http://localhost:5000/api/v1/books", book, { headers })
       .then((response) => {
         console.log(response.data);
-        dispatch(postBook(book));
+        dispatch(createBookAction(book));
       })
       .catch((error) => {
         throw error;
@@ -52,7 +54,9 @@ export const createBook = (book: any) => {
   };
 };
 
-export const deleteBook = (books: any, book: any) => {
+export const deleteBook = (books: any, book: any, token: string) => {
+  const headers = { "auth-token": token };
+
   const reqBook = books.filter(
     (eachBook: any) => eachBook.title === book.title
   );
@@ -60,7 +64,7 @@ export const deleteBook = (books: any, book: any) => {
 
   return (dispatch: Dispatch) => {
     axios
-      .delete(`http://localhost:5000/api/v1/books/${bookId}`)
+      .delete(`http://localhost:5000/api/v1/books/${bookId}`, { headers })
       .then((response) => {
         dispatch(deleteBookAction(response.data));
       })
@@ -68,4 +72,24 @@ export const deleteBook = (books: any, book: any) => {
         throw error;
       });
   };
+};
+
+export const editBook = (books: any, book: any, token: string) => {
+  const headers = { "auth-token": token };
+  const bookId = book._id;
+
+  axios
+    .patch(
+      `http://localhost:5000/api/v1/books/${bookId}`,
+      { ...book },
+      {
+        headers,
+      }
+    )
+    .then((response) => {
+      alert("Book edited successfully :)");
+    })
+    .catch((error) => {
+      throw error;
+    });
 };

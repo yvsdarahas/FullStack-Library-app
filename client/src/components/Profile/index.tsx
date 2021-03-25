@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
 
+import "./index.css";
+
 type SetProfileClicked = {
   setProfileClicked: any;
 };

@@ -7,7 +7,6 @@ import {
   InternalServerError,
 } from '../helpers/apiError'
 
-// POST /books\s
 export const createUser = async (
   req: Request,
   res: Response,
@@ -24,7 +23,7 @@ export const createUser = async (
       books,
     })
 
-    await UserService.createItem(user)
+    await UserService.createUserService(user)
     res.json(user)
   } catch (error) {
     if (error.name === 'ValidationError') {
@@ -35,7 +34,6 @@ export const createUser = async (
   }
 }
 
-// PUT /bookss/:bookId
 export const updateUser = async (
   req: Request,
   res: Response,
@@ -44,51 +42,48 @@ export const updateUser = async (
   try {
     const update = req.body
     const userId = req.params.userId
-    await UserService.updateItem(User, userId, update)
+    await UserService.updateUserService(User, userId, update)
     return User.findById(userId)
       .exec()
       .then((user) => res.send(user))
   } catch (error) {
-    next(new NotFoundError('books not found', error))
+    next(new NotFoundError('user not found', error))
   }
 }
 
-// DELETE /books\s/:bookId
 export const deleteUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    await UserService.deleteItem(User, req.params.userId)
+    await UserService.deleteUserService(User, req.params.userId)
     res.status(204).end()
   } catch (error) {
-    next(new NotFoundError('books not found', error))
+    next(new NotFoundError('user not found', error))
   }
 }
 
-// GET /books\s/:bookId
 export const findUserById = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await UserService.findItemById(User, req.params.userId))
+    res.json(await UserService.findUserByIdService(User, req.params.userId))
   } catch (error) {
-    next(new NotFoundError('books not found', error))
+    next(new NotFoundError('user not found', error))
   }
 }
 
-// GET /books\s
 export const findAllUsers = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await UserService.findAllItems(User))
+    res.json(await UserService.findAllUsersService(User))
   } catch (error) {
-    next(new NotFoundError('bookss not found', error))
+    next(new NotFoundError('users not found', error))
   }
 }

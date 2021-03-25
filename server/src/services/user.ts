@@ -2,11 +2,11 @@
 import mongoose from 'mongoose'
 import { UserDocument } from '../models/User'
 
-function createItem(item: UserDocument): Promise<UserDocument> {
+function createUserService(item: UserDocument): Promise<UserDocument> {
   return item.save()
 }
 
-function findItemById(
+function findUserByIdService(
   ItemModel: mongoose.Model<UserDocument>,
   itemId: string
 ): Promise<UserDocument> {
@@ -20,13 +20,13 @@ function findItemById(
     })
 }
 
-function findAllItems(
+function findAllUsersService(
   ItemModel: mongoose.Model<UserDocument>
 ): Promise<UserDocument[]> {
   return ItemModel.find().exec()
 }
 
-function updateItem(
+function updateUserService(
   ItemModel: mongoose.Model<UserDocument>,
   itemId: string,
   update: Partial<UserDocument>
@@ -34,7 +34,7 @@ function updateItem(
   return ItemModel.findByIdAndUpdate(itemId, update).exec()
 }
 
-function deleteItem(
+function deleteUserService(
   ItemModel: mongoose.Model<UserDocument>,
   itemId: string
 ): Promise<UserDocument | null> {
@@ -42,9 +42,9 @@ function deleteItem(
 }
 
 export default {
-  createItem,
-  findItemById,
-  findAllItems,
-  updateItem,
-  deleteItem,
+  createUserService,
+  findUserByIdService,
+  findAllUsersService,
+  updateUserService,
+  deleteUserService,
 }
