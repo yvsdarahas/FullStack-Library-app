@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { registerUser } from "../../redux/actions/users";
-import GoogleLogin from "react-google-login";
-import GoogleButton from "react-google-button";
+import { GoogleRegister } from "../GoogleRegister";
+import { User, CustomUser, ReduxState } from "../../types";
 import "./index.css";
 
 export const UserRegister = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state: any) => state.users.users);
+  const users = useSelector((state: ReduxState) => state.users.users);
 
   const [isExist, setIsExist] = useState(false);
   const [status, setStatus] = useState("");
@@ -20,9 +19,9 @@ export const UserRegister = () => {
     password: "",
   });
 
-  const validateUserAndRegister = (user: any) => {
+  const validateUserAndRegister = (user: CustomUser) => {
     const userCheck = users.filter(
-      (eachUser: any) => eachUser.email === user.email
+      (eachUser: User) => eachUser.email === user.email
     );
 
     if (userCheck.length >= 1) {
@@ -32,26 +31,9 @@ export const UserRegister = () => {
     }
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: React.FormEvent<EventTarget>) => {
     event.preventDefault();
     validateUserAndRegister(user);
-  };
-
-  const onSuccess = async (res: any) => {
-    axios
-      .post("http://localhost:5000/auth/google/register", {
-        id_token: res.tokenObj.id_token,
-      })
-      .then((response) => {
-        setStatus(response.data.status);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const onFailure = (error: Error) => {
-    console.log(error);
   };
 
   return (
@@ -106,18 +88,7 @@ export const UserRegister = () => {
         <button className="registeruser-button" type="submit">
           Register
         </button>
-        <GoogleLogin
-          clientId="930886919119-vlq8fcf512qojlv3ngrjgopn2jspkj4j.apps.googleusercontent.com"
-          render={(renderProps) => (
-            <GoogleButton
-              label="Sign Up with Google"
-              onClick={renderProps.onClick}
-            />
-          )}
-          onSuccess={onSuccess}
-          onFailure={onFailure}
-          cookiePolicy={"single_host_origin"}
-        />
+        <GoogleRegister setStatus={setStatus} />
       </form>
     </div>
   );

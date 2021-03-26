@@ -1,17 +1,24 @@
-import React from "react";
 import { Genre } from "../Genres";
 import useFilter from "../../hooks/useFilter";
+import { Book } from "../../types";
 import "./index.css";
 
-export const Home = ({ search, books }: any) => {
+type HomeProps = {
+  search: string;
+  books: Book[];
+};
+
+export const Home = ({ search, books }: HomeProps) => {
   const filteredBooks = useFilter(books, search);
 
   const children = filteredBooks.filter(
-    (book: any) => book.genre === "children"
+    (book: Book) => book.genre === "children"
   );
-  const romance = filteredBooks.filter((book: any) => book.genre === "romance");
+  const romance = filteredBooks.filter(
+    (book: Book) => book.genre === "romance"
+  );
   const thriller = filteredBooks.filter(
-    (book: any) => book.genre === "thriller"
+    (book: Book) => book.genre === "thriller"
   );
 
   return (

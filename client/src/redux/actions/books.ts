@@ -1,23 +1,29 @@
-import { GET_BOOKS, CREATE_BOOK, DELETE_BOOK } from "../../types";
+import {
+  GET_BOOKS,
+  CREATE_BOOK,
+  DELETE_BOOK,
+  CustomBook,
+  Book,
+} from "../../types";
 
 import axios from "axios";
 import { Dispatch } from "redux";
 
-const fetchBooks = (books: any) => {
+const fetchBooks = (books: Book[]) => {
   return {
     type: GET_BOOKS,
     payload: books,
   };
 };
 
-const createBookAction = (book: any) => {
+const createBookAction = (book: Book) => {
   return {
     type: CREATE_BOOK,
     payload: book,
   };
 };
 
-const deleteBookAction = (books: any) => {
+const deleteBookAction = (books: Book[]) => {
   return {
     type: DELETE_BOOK,
     payload: books,
@@ -29,8 +35,7 @@ export const getBooks = () => {
     axios
       .get("http://localhost:5000/api/v1/books")
       .then((response) => {
-        const books = response.data;
-        dispatch(fetchBooks(books));
+        dispatch(fetchBooks(response.data));
       })
       .catch((error) => {
         throw error;
@@ -38,15 +43,14 @@ export const getBooks = () => {
   };
 };
 
-export const createBook = (book: any, token: string) => {
+export const createBook = (book: CustomBook, token: string) => {
   const headers = { "auth-token": token };
 
   return (dispatch: Dispatch) => {
     axios
       .post("http://localhost:5000/api/v1/books", book, { headers })
       .then((response) => {
-        console.log(response.data);
-        dispatch(createBookAction(book));
+        dispatch(createBookAction(response.data));
       })
       .catch((error) => {
         throw error;
@@ -54,11 +58,11 @@ export const createBook = (book: any, token: string) => {
   };
 };
 
-export const deleteBook = (books: any, book: any, token: string) => {
+export const deleteBook = (books: Book[], book: Book, token: string) => {
   const headers = { "auth-token": token };
 
   const reqBook = books.filter(
-    (eachBook: any) => eachBook.title === book.title
+    (eachBook: Book) => eachBook.title === book.title
   );
   const bookId = reqBook[0]._id;
 
@@ -74,7 +78,7 @@ export const deleteBook = (books: any, book: any, token: string) => {
   };
 };
 
-export const editBook = (books: any, book: any, token: string) => {
+export const editBook = (book: Book, token: string) => {
   const headers = { "auth-token": token };
   const bookId = book._id;
 

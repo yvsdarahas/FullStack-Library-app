@@ -1,7 +1,11 @@
-import React from "react";
+import { Book } from "../../types";
 import "./index.css";
 
-export const CardView = ({ book }: any) => {
+type CardViewProp = {
+  book: Book;
+};
+
+export const CardView = ({ book }: CardViewProp) => {
   return (
     <>
       <ul className="cardview">

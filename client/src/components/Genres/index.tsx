@@ -1,9 +1,14 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { CardView } from "../CardView";
+import { Book } from "../../types";
 import "./index.css";
 
-export const Genre = ({ books, title }: any) => {
+type GenreProps = {
+  books: Book[];
+  title: string;
+};
+
+export const Genre = ({ books, title }: GenreProps) => {
   return (
     <div>
       <div className="genre-head">
@@ -13,8 +18,8 @@ export const Genre = ({ books, title }: any) => {
         </h4>
       </div>
       <ul className="genre">
-        {books.slice(0, 6).map((book: any) => (
-          <li key={book._id}>
+        {books.slice(0, 6).map((book: Book) => (
+          <li key={book.title}>
             <Link style={{ textDecoration: "none" }} to={`/${book.title}`}>
               <CardView book={book} />
             </Link>

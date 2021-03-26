@@ -1,34 +1,37 @@
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { returnBook } from "../../redux/actions/users";
+import { Book, ReduxState } from "../../types";
 
 import "./index.css";
 
-const BooksBorrowed = () => {
+export const BooksBorrowed = () => {
   const dispatch = useDispatch();
   const booksBorrowed = useSelector(
-    (state: any) => state.users.signedInUser.books
+    (state: ReduxState) => state.users.signedInUser.books
   );
-  const user = useSelector((state: any) => state.users.signedInUser);
-  const token = useSelector((state: any) => state.users.token);
+  const user = useSelector((state: ReduxState) => state.users.signedInUser);
+  const token = useSelector((state: ReduxState) => state.users.token);
 
-  const handleReturnBook = (book: any) => {
+  const handleReturnBook = (book: Book) => {
     dispatch(returnBook(user, book, token));
   };
 
   return (
-    <div style={{ marginTop: "100px" }}>
-      {booksBorrowed.map((book: any) => (
-        <div key={book._id}>
-          <img src={book.coverPage} alt="CoverPage" />
-          <ul>
-            <li>{book.title}</li>
-            <li>{book.author}</li>
-          </ul>
+    <div className="borrowed-books">
+      {booksBorrowed.map((book: Book) => (
+        <div className="borrowedbook" key={book.title}>
+          <Link style={{ textDecoration: "none" }} to={`/${book.title}`}>
+            <img
+              src={book.coverPage}
+              alt="CoverPage"
+              width="200px"
+              height="300px"
+            />
+          </Link>
           <button onClick={() => handleReturnBook(book)}>Remove</button>
         </div>
       ))}
     </div>
   );
 };
-
-export default BooksBorrowed;

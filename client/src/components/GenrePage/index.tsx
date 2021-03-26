@@ -1,18 +1,18 @@
-import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Book, ReduxState } from "../../types";
 
 export const GenrePage = () => {
   const genreParam = useParams<{ genre: string }>();
-  const books = useSelector((state: any) => state.books.books);
+  const books = useSelector((state: ReduxState) => state.books.books);
 
   return (
     <div style={{ marginTop: "100px" }}>
       {books
-        .filter((book: any) => book.genre === genreParam.genre.toLowerCase())
-        .map((book: any) => (
+        .filter((book: Book) => book.genre === genreParam.genre.toLowerCase())
+        .map((book: Book) => (
           <div
-            key={book._id}
+            key={book.title}
             className="inShortAboutBook"
             style={{ display: "flex", margin: "20px" }}
           >

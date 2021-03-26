@@ -1,10 +1,10 @@
-import { GET_BOOKS, CREATE_BOOK, DELETE_BOOK } from "../../types";
+import { GET_BOOKS, CREATE_BOOK, DELETE_BOOK, BooksAction } from "../../types";
 
 const initialState = {
   books: [],
 };
 
-export const books = (state = initialState, action: any) => {
+export const books = (state = initialState, action: BooksAction) => {
   switch (action.type) {
     case GET_BOOKS:
       return {

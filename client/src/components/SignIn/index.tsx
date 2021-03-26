@@ -1,45 +1,29 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import GoogleLogin from "react-google-login";
+import GoogleLogin, {
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from "react-google-login";
 import GoogleButton from "react-google-button";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
-import { signedInUser } from "../../redux/actions/users";
+import { userSignIn } from "../../redux/actions/users";
 
 export const SignIn = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  // const users = useSelector((state: any) => state.users.users);
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
-  const onSuccess = async (res: any) => {
-    console.log(res);
-    axios
-      .post("http://localhost:5000/auth/google/signIn", {
-        id_token: res.tokenObj.id_token,
-      })
-      .then((response) => {
-        if (response.data.userVerify) {
-          history.push("/");
-          localStorage.setItem(
-            "signedInUser",
-            JSON.stringify(response.data.userVerify)
-          );
-          localStorage.setItem("jwtToken", JSON.stringify(response.data.token));
-          dispatch(signedInUser(response.data.userVerify, response.data.token));
-        } else {
-          history.push("/register-user");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const onSuccess = async (
+    res: GoogleLoginResponse | GoogleLoginResponseOffline
+  ) => {
+    dispatch(userSignIn(res, history));
   };
+
   const onFailure = (error: Error) => {
-    console.log(error);
+    throw error;
   };
 
   return (

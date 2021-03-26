@@ -1,7 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-const AdminPreviliges = () => {
+export const AdminPreviliges = () => {
   return (
     <>
       <li>
@@ -29,5 +28,3 @@ const AdminPreviliges = () => {
     </>
   );
 };
-
-export default AdminPreviliges;

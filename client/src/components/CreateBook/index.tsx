@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createBook } from "../../redux/actions/books";
+import { ReduxState } from "../../types";
 import "./index.css";
 
 export const CreateBook = () => {
   const dispatch = useDispatch();
-  const token = useSelector((state: any) => state.users.token);
+  const token = useSelector((state: ReduxState) => state.users.token);
   const [book, setBook] = useState({
     title: "",
     author: "",
@@ -17,8 +18,7 @@ export const CreateBook = () => {
     rating: 0,
   });
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
+  const handleSubmit = (event: React.FormEvent<EventTarget>) => {
     dispatch(createBook(book, token));
   };
 

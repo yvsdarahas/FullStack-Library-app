@@ -1,0 +1,17 @@
+.borrowed-books {
+  margin-top: 100px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.borrowedbook {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 30px 20px;
+}
+
+.borrowedbook button {
+  margin: 20px;
+}

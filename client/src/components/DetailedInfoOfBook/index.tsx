@@ -1,29 +1,30 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { borrowBook, returnBook } from "../../redux/actions/users";
 import { deleteBook } from "../../redux/actions/books";
-import "./index.css";
 import { EditBook } from "../EditBook";
+import { ReduxState, Book } from "../../types";
+import "./index.css";
 
 export const DetailedInfoOfBook = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const books = useSelector((state: any) => state.books.books);
-  const user = useSelector((state: any) => state.users.signedInUser);
-  const token = useSelector((state: any) => state.users.token);
+
+  const books = useSelector((state: ReduxState) => state.books.books);
+  const user = useSelector((state: ReduxState) => state.users.signedInUser);
+  const token = useSelector((state: ReduxState) => state.users.token);
 
   const { bookInfo } = useParams<{ bookInfo: string }>();
   const verifyBook = token
-    ? user.books.filter((book: any) => book.title === bookInfo)
-    : null;
+    ? user.books.filter((book: Book) => book.title === bookInfo)
+    : [];
   const [buttonStatus, setButtonStatus] = useState(
     token ? (verifyBook.length >= 1 ? false : true) : true
   );
   const [clickedEdit, setClickedEdit] = useState(false);
 
-  const handleBorrowBook = (book: any) => {
+  const handleBorrowBook = (book: Book) => {
     if (token) {
       dispatch(borrowBook(user, book, token));
       setButtonStatus(!buttonStatus);
@@ -32,27 +33,27 @@ export const DetailedInfoOfBook = () => {
     }
   };
 
-  const handleReturnBook = (book: any) => {
+  const handleReturnBook = (book: Book) => {
     dispatch(returnBook(user, book, token));
     setButtonStatus(!buttonStatus);
   };
 
-  const handleDeleteBook = (book: any) => {
+  const handleDeleteBook = (book: Book) => {
     dispatch(deleteBook(books, book, token));
     history.push("/");
   };
 
-  const handleEditBook = (book: any) => {
+  const handleEditBook = () => {
     setClickedEdit(!clickedEdit);
   };
 
   return (
     <div style={{ marginTop: "100px" }}>
       {books
-        .filter((book: any) => book.title === bookInfo)
-        .map((book: any) => (
+        .filter((book: Book) => book.title === bookInfo)
+        .map((book: Book) => (
           <div
-            key={book._id}
+            key={book.title}
             style={{
               display: "flex",
               justifyContent: "center",
@@ -109,7 +110,7 @@ export const DetailedInfoOfBook = () => {
                   </button>
                   <button
                     onClick={() => {
-                      handleEditBook(book);
+                      handleEditBook();
                     }}
                   >
                     Edit

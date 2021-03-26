@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editBook } from "../../redux/actions/books";
+import { ReduxState, Book } from "../../types";
 import "./index.css";
 
-export const EditBook = ({ book, setClickedEdit }: any) => {
+type EditBookProps = {
+  book: Book;
+  setClickedEdit: (clickToEdit: boolean) => void;
+};
+
+export const EditBook = ({ book, setClickedEdit }: EditBookProps) => {
   const dispatch = useDispatch();
-  const token = useSelector((state: any) => state.users.token);
-  const books = useSelector((state: any) => state.books.books);
+  const token = useSelector((state: ReduxState) => state.users.token);
   const [bookToEdit, setBookToEdit] = useState({ ...book });
 
   const handleEditBook = () => {
-    dispatch(editBook(books, bookToEdit, token));
+    dispatch(editBook(bookToEdit, token));
   };
 
   return (

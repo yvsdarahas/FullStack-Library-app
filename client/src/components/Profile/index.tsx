@@ -1,12 +1,16 @@
 import { useSelector } from "react-redux";
+import { Book, ReduxState } from "../../types";
 
 import "./index.css";
 
 type SetProfileClicked = {
-  setProfileClicked: any;
+  setProfileClicked: (profileClicked: boolean) => void;
 };
+
 export const Profile = ({ setProfileClicked }: SetProfileClicked) => {
-  const signedInUser = useSelector((state: any) => state.users.signedInUser);
+  const signedInUser = useSelector(
+    (state: ReduxState) => state.users.signedInUser
+  );
 
   return (
     <>
@@ -30,8 +34,8 @@ export const Profile = ({ setProfileClicked }: SetProfileClicked) => {
           <li>Role: {signedInUser.isAdmin ? "Admin" : "User"}</li>
           <li>{signedInUser.books.length} books borrowed</li>
           <ol>
-            {signedInUser.books.map((book: any) => (
-              <li key={book._id}>{book.title}</li>
+            {signedInUser.books.map((book: Book) => (
+              <li key={book.title}>{book.title}</li>
             ))}
           </ol>
           <button onClick={() => setProfileClicked(false)}>Close</button>

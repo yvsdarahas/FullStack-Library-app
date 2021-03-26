@@ -4,6 +4,7 @@ import {
   SIGNED_IN_USER,
   BOOK_BORROWED,
   BOOK_GIVEAWAY,
+  UserAction,
 } from "../../types";
 
 export const users = (
@@ -12,7 +13,7 @@ export const users = (
     signedInUser: JSON.parse(localStorage.getItem("signedInUser") || `{}`),
     token: JSON.parse(localStorage.getItem("jwtToken") || `""`),
   },
-  action: any
+  action: UserAction
 ) => {
   switch (action.type) {
     case GET_USERS:

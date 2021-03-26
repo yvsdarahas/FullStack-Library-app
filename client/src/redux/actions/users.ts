@@ -1,43 +1,51 @@
+import { RouteComponentProps } from "react-router-dom";
+import { Dispatch } from "redux";
+import axios from "axios";
+import {
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from "react-google-login";
+
 import {
   GET_USERS,
   REGISTER_USER,
   SIGNED_IN_USER,
   BOOK_BORROWED,
   BOOK_GIVEAWAY,
+  CustomUser,
+  User,
+  Book,
 } from "../../types";
 
-import axios from "axios";
-import { Dispatch } from "redux";
-
-const fetchUsers = (users: any) => {
+const fetchUsers = (users: User[]) => {
   return {
     type: GET_USERS,
     payload: users,
   };
 };
 
-const postUser = (user: any) => {
+const registerUserAction = (user: User) => {
   return {
     type: REGISTER_USER,
     payload: user,
   };
 };
 
-export const signedInUser = (user: any, token: string) => {
+export const signedInUser = (user: User, token: string) => {
   return {
     type: SIGNED_IN_USER,
     payload: { user, token },
   };
 };
 
-export const addToBorrowedList = (user: any) => {
+export const addToBorrowedList = (user: User) => {
   return {
     type: BOOK_BORROWED,
     payload: user,
   };
 };
 
-export const removeFromBorrowedList = (user: any) => {
+export const removeFromBorrowedList = (user: User) => {
   return {
     type: BOOK_GIVEAWAY,
     payload: user,
@@ -57,12 +65,12 @@ export const getUsers = () => {
   };
 };
 
-export const registerUser = (user: any) => {
+export const registerUser = (user: CustomUser) => {
   return (dispatch: Dispatch) => {
     axios
       .post("http://localhost:5000/api/v1/users", user)
       .then((response) => {
-        dispatch(postUser(response.data));
+        dispatch(registerUserAction(response.data));
       })
       .catch((error) => {
         throw error;
@@ -70,7 +78,35 @@ export const registerUser = (user: any) => {
   };
 };
 
-export const borrowBook = (user: any, book: any, token: string) => {
+export const userSignIn = (
+  res: GoogleLoginResponse | GoogleLoginResponseOffline,
+  history: RouteComponentProps["history"]
+) => {
+  return (dispatch: Dispatch) => {
+    axios
+      .post("http://localhost:5000/auth/google/signIn", {
+        id_token: (res as GoogleLoginResponse).tokenObj.id_token,
+      })
+      .then((response) => {
+        if (response.data.userVerify) {
+          history.push("/");
+          localStorage.setItem(
+            "signedInUser",
+            JSON.stringify(response.data.userVerify)
+          );
+          localStorage.setItem("jwtToken", JSON.stringify(response.data.token));
+          dispatch(signedInUser(response.data.userVerify, response.data.token));
+        } else {
+          history.push("/register-user");
+        }
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+};
+
+export const borrowBook = (user: User, book: Book, token: string) => {
   const headers = { "auth-token": token };
   return (dispatch: Dispatch) => {
     axios
@@ -91,11 +127,11 @@ export const borrowBook = (user: any, book: any, token: string) => {
   };
 };
 
-export const returnBook = (user: any, book: any, token: string) => {
+export const returnBook = (user: User, book: Book, token: string) => {
   const headers = { "auth-token": token };
 
   const index = user.books.findIndex(
-    (eachBook: any) => eachBook.title === book.title
+    (eachBook: Book) => eachBook.title === book.title
   );
   user.books.splice(index, 1);
   return (dispatch: Dispatch) => {

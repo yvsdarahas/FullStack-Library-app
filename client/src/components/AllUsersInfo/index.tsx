@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../redux/actions/users";
+import { Book, ReduxState, User } from "../../types";
 
-const AllUsersInfo = () => {
+export const AllUsersInfo = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state: any) => state.users.users);
+  const users = useSelector((state: ReduxState) => state.users.users);
 
   useEffect(() => {
     dispatch(getUsers());
@@ -24,9 +25,9 @@ const AllUsersInfo = () => {
         </thead>
         <tbody>
           {users
-            .filter((user: any) => user.isAdmin === false)
-            .map((user: any) => (
-              <tr key={user._id}>
+            .filter((user: User) => user.isAdmin === false)
+            .map((user: User) => (
+              <tr key={user.email}>
                 <td>
                   <img
                     src={`${user.picture}`}
@@ -45,8 +46,8 @@ const AllUsersInfo = () => {
                 <td>{user.books.length}</td>
                 <td>
                   <ul>
-                    {user.books.map((book: any) => (
-                      <li key={book._id}>{book.title}</li>
+                    {user.books.map((book: Book) => (
+                      <li key={book.title}>{book.title}</li>
                     ))}
                   </ul>
                 </td>
@@ -57,5 +58,3 @@ const AllUsersInfo = () => {
     </div>
   );
 };
-
-export default AllUsersInfo;
