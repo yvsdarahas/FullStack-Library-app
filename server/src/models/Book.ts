@@ -6,7 +6,7 @@ export type BookDocument = Document & {
   author: string
   coverPage: string
   shortDescription: string
-  published: string
+  published: number
   pages: number
   genre: string
   rating: number

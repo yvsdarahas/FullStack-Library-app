@@ -14,7 +14,7 @@ function findUserByIdService(
     .exec()
     .then((book) => {
       if (!book) {
-        throw new Error(`Book ${itemId} not found`)
+        throw new Error(`User ${itemId} not found`)
       }
       return book
     })

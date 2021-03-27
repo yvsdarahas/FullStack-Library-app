@@ -3,9 +3,20 @@ import mongoose from 'mongoose'
 import { UserDocument } from '../models/User'
 import jwt from 'jsonwebtoken'
 
+type UserData = {
+  given_name: string
+  family_name: string
+  email: string
+  picture: string
+}
+
+type SignedInUser = {
+  userData: UserData
+}
+
 export async function findAndCreateUser(
   User: mongoose.Model<UserDocument>,
-  signedUser: any
+  signedUser: SignedInUser
 ) {
   const { given_name, family_name, email, picture } = signedUser.userData
 
@@ -31,7 +42,7 @@ export async function findAndCreateUser(
 
 export async function findAndCreateToken(
   User: mongoose.Model<UserDocument>,
-  signedUser: any
+  signedUser: SignedInUser
 ) {
   const { email } = signedUser.userData
 

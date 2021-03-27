@@ -24,11 +24,11 @@ content-type: application/json
 
 ###
 
-PATCH http://localhost:5000/api/v1/books/603796af776d4712781c891b HTTP/1.1
+PATCH http://localhost:5000/api/v1/books/60379594776d4712781c8917 HTTP/1.1
 content-type: application/json
 
 {
-    "coverPage": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781471127182/the-complete-sherlock-holmes-9781471127182_hr.jpg"
+  "pages": 220
 }
 ###
 
@@ -66,7 +66,7 @@ content-type: application/json
     "genre": "romance",
     "rating": 3.6
   }]
-  }
+}
   
 ###
 

@@ -59,6 +59,7 @@ export const updateBook = async (
     const bookId = req.params.bookId
 
     await BookService.updateBookService(Library, bookId, update)
+
     return Library.findById(bookId)
       .exec()
       .then((book) => res.send(book))

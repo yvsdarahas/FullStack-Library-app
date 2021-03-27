@@ -27,6 +27,7 @@
   "dependencies": {
     "@types/express-session": "^1.17.3",
     "@types/jsonwebtoken": "^8.3.7",
+    "@types/mocha": "^8.2.2",
     "async": "^3.2.0",
     "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.7.2",

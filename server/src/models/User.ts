@@ -9,7 +9,7 @@ export type UserDocument = Document & {
   password: string
   isAdmin: boolean
   picture: string
-  books: mongoose.Model<BookDocument>[]
+  books: BookDocument[]
 }
 
 const userSchema = new mongoose.Schema({
